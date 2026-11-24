@@ -1,3 +1,4 @@
+
 require("dotenv").config();
 
 const express = require("express");
@@ -6,7 +7,6 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 const path = require("path");
-const fs = require("fs");
 
 const app = express();
 
@@ -17,8 +17,12 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(cookieParser());
 
 // Configuração SSL Aiven
+if (!process.env.DB_SSL_CA) {
+    throw new Error("Certificado DB_SSL_CA não encontrado no .env");
+}
+
 const ssl = {
-    ca: fs.readFileSync(path.join(__dirname, "ca.pem"), "utf8"),
+    ca: process.env.DB_SSL_CA.replace(/\\n/g, "\n"),
     rejectUnauthorized: true
 };
 
