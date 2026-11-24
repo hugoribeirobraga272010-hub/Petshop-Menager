@@ -1,0 +1,87 @@
+TUDO QUE FOI NECESSÁRIO BAIXAR/INSTALAR PARA RODAR O PROJETO PETSHOP
+(Conforme os dois chats anteriores sobre a configuração do projeto)
+
+1. NODE.JS
+- Versão registrada nos chats: Node.js v20.11.1
+- Site oficial: https://nodejs.org/
+- O npm é instalado junto com o Node.js.
+- O projeto inicia o servidor com:
+  npm start
+  (o comando executa: node server.js)
+
+2. PACOTES DO NODE.JS (NPM)
+Os pacotes identificados no server.js e nos chats foram:
+
+- express
+- dotenv
+- mysql2
+- bcrypt
+- jsonwebtoken
+- cookie-parser
+
+Comando para instalar todos de uma vez, dentro da pasta do projeto:
+
+npm install express dotenv mysql2 bcrypt jsonwebtoken cookie-parser
+
+Também foi usado o comando:
+
+npm install
+
+Ele instala todas as dependências que já estiverem listadas no package.json.
+
+Histórico de instalação registrado nos chats:
+- npm install mysql2
+- npm install bcrypt
+- npm install jsonwebtoken
+- npm install cookie-parser
+
+Os chats também orientaram instalar express e dotenv. Para garantir que todos estejam instalados, use o comando completo acima.
+
+3. MYSQL
+- O projeto usa MySQL como banco de dados.
+- É necessário ter o servidor MySQL instalado e em execução.
+- O banco utilizado pelo projeto tem o nome: petshop.
+- O usuário configurado no arquivo .env é DB_USER=root.
+- A senha do banco deve ser configurada em DB_PASSWORD no arquivo .env.
+
+4. PYTHON
+- O projeto também usa o arquivo api.py.
+- O servidor Node.js faz chamadas para a API Python em:
+  http://127.0.0.1:5001
+- Portanto, é necessário ter Python instalado para executar essa parte.
+- Nos chats anteriores foi usado o comando:
+  python api.py
+
+Os chats recuperados não registram quais bibliotecas Python foram instaladas. Para descobrir a lista exata, é necessário conferir os imports do arquivo api.py.
+
+5. ARQUIVO .ENV
+O arquivo .env não é um programa para baixar. Ele é um arquivo de configuração que deve ficar na mesma pasta do server.js.
+
+Ele contém as configurações do banco, do administrador e do token. Não publique esse arquivo no GitHub e não compartilhe suas senhas ou segredos.
+
+6. COMANDOS PARA PREPARAR E EXECUTAR
+
+Na pasta do projeto, onde está o package.json:
+
+npm install
+
+Se precisar garantir os pacotes do servidor:
+
+npm install express dotenv mysql2 bcrypt jsonwebtoken cookie-parser
+
+Para iniciar o servidor Node.js:
+
+npm start
+
+Em outro terminal, para iniciar a API Python:
+
+python api.py
+
+7. RESUMO DO QUE PRECISA ESTAR INSTALADO
+
+- Node.js v20.11.1 (com npm)
+- MySQL Server
+- Python (para executar api.py)
+- Pacotes npm: express, dotenv, mysql2, bcrypt, jsonwebtoken e cookie-parser
+
+Observação: MySQL Workbench não aparece como instalação obrigatória nos chats anteriores. As bibliotecas Python exatas também não ficaram registradas; precisam ser verificadas no arquivo api.py.
