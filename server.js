@@ -1,4 +1,3 @@
-
 require("dotenv").config();
 
 const express = require("express");
@@ -8,6 +7,21 @@ const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 const path = require("path");
 
+// Verificar variáveis essenciais
+const variaveisObrigatorias = [
+    "HOST", "DB_USER", "DB_PASSWORD", "DB_NAME",
+    "DB_SSL_CA", "ADMIN_EMAIL", "ADMIN_SENHA", "JWT_SEGREDO"
+];
+
+const faltando = variaveisObrigatorias.filter(
+    (nome) => !process.env[nome]
+);
+
+if (faltando.length > 0) {
+    console.error("Variáveis de ambiente ausentes:", faltando.join(", "));
+    process.exit(1);
+}
+
 const app = express();
 
 app.set("trust proxy", 1);
@@ -16,11 +30,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(cookieParser());
 
-// Configuração SSL Aiven
-if (!process.env.DB_SSL_CA) {
-    throw new Error("Certificado DB_SSL_CA não encontrado no .env");
-}
-
+// Configuração SSL Aiven usando somente certificado do .env
 const ssl = {
     ca: process.env.DB_SSL_CA.replace(/\\n/g, "\n"),
     rejectUnauthorized: true
@@ -29,7 +39,7 @@ const ssl = {
 // Conexão com o banco
 const db = mysql.createPool({
     host: process.env.HOST,
-    port: Number(process.env.PORT || 3306),
+    port: Number(process.env.DB_PORT || 3306),
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
@@ -404,8 +414,10 @@ app.get("/api/pdf", autenticar, async (req, res) => {
 // Inicializar servidor
 criarBanco()
     .then(() => {
-        app.listen(3000, "0.0.0.0", () => {
-            console.log("Servidor rodando na porta 3000");
+        const porta = process.env.PORT || 3000;
+
+        app.listen(porta, "0.0.0.0", () => {
+            console.log(`Servidor rodando na porta ${porta}`);
         });
     })
     .catch((erro) => {
